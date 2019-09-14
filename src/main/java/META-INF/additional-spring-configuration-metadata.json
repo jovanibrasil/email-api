@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "smtp.user",
+    "type": "java.lang.String",
+    "description": "A description for 'smtp.user'"
+  },
+  {
+    "name": "smtp.password",
+    "type": "java.lang.String",
+    "description": "A description for 'smtp.password'"
+  },
+  {
+    "name": "smtp.host",
+    "type": "java.lang.String",
+    "description": "A description for 'smtp.host'"
+  },
+  {
+    "name": "pop3.user",
+    "type": "java.lang.String",
+    "description": "A description for 'pop3.user'"
+  },
+  {
+    "name": "pop3.host",
+    "type": "java.lang.String",
+    "description": "A description for 'pop3.host'"
+  },
+  {
+    "name": "pop3.password",
+    "type": "java.lang.String",
+    "description": "A description for 'pop3.password'"
+  }
+]}
