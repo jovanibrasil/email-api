@@ -52,7 +52,7 @@ public class EmailService {
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "465");
-
+		
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(user, password);
@@ -118,15 +118,15 @@ public class EmailService {
 			multipart.addBodyPart(messageBodyPart);
 
 			// Create the part two that is an attachment
-			messageBodyPart = new MimeBodyPart();
-			String filename = attachmentName;
-			DataSource source = new FileDataSource(filename);
-			messageBodyPart.setDataHandler(new DataHandler(source));
-			messageBodyPart.setFileName(filename);
-			multipart.addBodyPart(messageBodyPart);
+			//messageBodyPart = new MimeBodyPart();
+			//String filename = attachmentName;
+			//DataSource source = new FileDataSource(filename);
+			//messageBodyPart.setDataHandler(new DataHandler(source));
+			//messageBodyPart.setFileName(filename);
+			//multipart.addBodyPart(messageBodyPart);
 
-			if (attachmentType.equals("image"))
-				messageBodyPart.setHeader("Content-ID", "<image>");
+			//if (attachmentType.equals("image"))
+			//	messageBodyPart.setHeader("Content-ID", "<image>");
 
 			return multipart;
 
