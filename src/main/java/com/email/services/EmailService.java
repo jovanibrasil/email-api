@@ -44,14 +44,41 @@ public class EmailService {
 	public Session smtpConnect(final String user, final String password, String host) {
 		log.info("Creating smtp session ...");
 
+		log.info("User: {}", user);
+		log.info("Password: {}", password);
+		log.info("Host: {}", host);
+		
 		// Setup SMTP email properties
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+
+		// SSL
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.socketFactory.port", "465");
+//		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.port", "465");
+//		
+		// TLS
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.starttls.enable", "true");
+//		props.put("mail.smtp.host", "smtp.gmail.com");
+//		props.put("mail.smtp.port", "587");
+		
+		//props.put("mail.host", "smtp.gmail.com");
+//		props.put("mail.port", "587");
+//		props.put("mail.smtp.auth", "true");
+//		props.put("mail.smtp.socketFactory.port", "587");
+//		props.put("mail.smtp.socketFactory.fallback", "true");
+//		props.put("mail.smtp.starttls.enable", "true");
+//		props.put("mail.smtp.starttls.required", "true");
+//		props.put("mail.smtp.ssl.enable", "false");
+
+		props.put("mail.transport.protocol", "smtps");
+	    props.put("mail.smtp.host", "smtp.sendgrid.net");
+	    props.put("mail.smtp.port", 587);
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.smtp.starttls.required", "true");
+	    props.put("mail.smtp.auth", "true");
 		
 		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
@@ -82,7 +109,7 @@ public class EmailService {
 			// Set receiver email (To)
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(customMessage.getTo()));
 			// Set Subject
-			message.setSubject("Testing Subject");
+			message.setSubject(customMessage.getTitle());
 
 			// Set the message body
 

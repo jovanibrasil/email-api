@@ -6,6 +6,7 @@ public class CustomMessage {
 	private String textType; //text/plain
 	private String to; //"jovanibrasil@gmail.com"
 	private String from; //"noreply@jovanibrasil.com" contact / email / reports / noreply
+	private String title;
 	
 	public CustomMessage() {}
 	
@@ -32,6 +33,13 @@ public class CustomMessage {
 	}
 	public void setFrom(String from) {
 		this.from = from;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

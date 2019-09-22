@@ -36,8 +36,7 @@ public class EmailController {
 	@PostMapping
 	public ResponseEntity<?> sendEmail(@RequestBody CustomMessage customMessage){
 	try {
-		
-			email.sendEmail(customMessage, pop3User, pop3Password, pop3Host);
+			email.sendEmail(customMessage, smtpUser, smtpPassword, smtpHost);
 
 			//String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
 			//String htmlType = "text/html";
