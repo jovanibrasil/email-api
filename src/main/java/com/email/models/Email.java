@@ -1,6 +1,6 @@
 package com.email.models;
 
-public class CustomMessage {
+public class Email {
 	
 	private String text; //"This is message body"
 	private String textType; //text/plain
@@ -8,7 +8,7 @@ public class CustomMessage {
 	private String from; //"noreply@jovanibrasil.com" contact / email / reports / noreply
 	private String title;
 	
-	public CustomMessage() {}
+	public Email() {}
 	
 	public String getText() {
 		return text;

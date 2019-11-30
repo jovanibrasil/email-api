@@ -1,38 +1,36 @@
 package com.email.controllers;
 
 import com.email.services.EmailService;
+import com.email.factories.MessageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.email.models.CustomMessage;
+import org.springframework.web.bind.annotation.*;
+import com.email.models.Email;
+
+import javax.mail.Message;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/emails")
 public class EmailController {
 
-	private EmailService email;
+	private static final Logger log = LoggerFactory.getLogger(EmailController.class);
 
-	public EmailController(EmailService email) {
+	private EmailService email;
+	private MessageFactory messageFactory;
+
+	public EmailController(EmailService email, MessageFactory messageFactory) {
 		this.email = email;
+		this.messageFactory = messageFactory;
 	}
 
 	@PostMapping
-	public ResponseEntity<?> sendEmail(@RequestBody CustomMessage customMessage){
+	public ResponseEntity<?> sendEmail(@RequestBody Email email){
+		log.info("Received request to send email from {} to {}", email.getFrom(), email.getTo());
 		try {
-
-			email.send(customMessage);
-
-			//String htmlText = "<H1>Hello</H1><img src=\"cid:image\">";
-			//String htmlType = "text/html";
-			//email = formatEmailContent(htmlText, htmlType, "logo.png", "image");
-			//getEmails();
-			// delete email
-			// templates
-			
+			Message message = this.messageFactory.getMessage(email);
+			this.email.send(message);
 			return ResponseEntity.ok().body(null);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,17 +1,14 @@
 package com.email.services;
 
-import com.email.EmailSession;
-import com.email.models.CustomMessage;
 import com.email.utils.EmailFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.List;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -19,38 +16,19 @@ public class EmailServiceImpl implements EmailService {
 	private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
 
 	private EmailFormatter emailFormatter;
+	private Session session;
 
-	public EmailServiceImpl(EmailFormatter emailFormatter) {
+	public EmailServiceImpl(EmailFormatter emailFormatter, Session session) {
 		this.emailFormatter = emailFormatter;
+		this.session = session;
 	}
 
 	@Override
-	public void send(CustomMessage customMessage) {
+	public void send(Message message) {
 		try {
-			Multipart multipartEmail = emailFormatter.formatEmailContent(customMessage.getText(),
-					customMessage.getTextType(), null, null);
-
-			Session session = EmailSession.getDefaultSession();
-
-			if (session == null) {
-				log.info("Session creation error.");
-			}
-
-			// Create a default MimeMessage object.
-			Message message = new MimeMessage(session);
-
-			// Set sender email (From)
-			message.setFrom(new InternetAddress(customMessage.getFrom()));
-			// Set receiver email (To)
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(customMessage.getTo()));
-			// Set Subject
-			message.setSubject(customMessage.getTitle());
-
-			// Set the message body
-			message.setContent(multipartEmail);
-			// Send the message
+			log.info("Sending email...");
 			Transport.send(message);
-			System.out.println("Sent message successfully....");
+			log.info("Sent message successfully!");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
@@ -66,10 +44,19 @@ public class EmailServiceImpl implements EmailService {
 		// TODO Not implemented yet
 	}
 
+	@Override
+	public void delete() {
+		// TODO Not implemented yet
+	}
+
+	@Override
+	public List<Message> getAll() {
+		// TODO Not implemented yet
+		return null;
+	}
+
 	public void getEmails(final String user, final String password, String host) {
-
-		Session session = EmailSession.getDefaultSession();
-
+		// TODO Fix implementation
 		try {
 
 			// Create the POP2 store object and connect with the pop server

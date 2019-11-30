@@ -1,5 +1,7 @@
 package com.email.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.activation.DataHandler;
@@ -14,10 +16,11 @@ import java.util.Date;
 @Component
 public class EmailFormatter {
 
-    public Multipart formatEmailContent(String content, String type, String attachmentName, String attachmentType) {
+    private static Logger log = LoggerFactory.getLogger(EmailFormatter.class);
 
+    public static Multipart formatEmailContent(String content, String type, String attachmentName, String attachmentType) {
+        log.info("Formatting email content.");
         try {
-
             // Create the message body with multiple parts
             Multipart multipart = new MimeMultipart();
 
@@ -28,6 +31,7 @@ public class EmailFormatter {
 
             if(attachmentName != null){
                 // Create the part two that is an attachment
+                log.info("Creating attachment.");
                 messageBodyPart = new MimeBodyPart();
                 String filename = attachmentName;
                 DataSource source = new FileDataSource(filename);
@@ -39,7 +43,6 @@ public class EmailFormatter {
                     messageBodyPart.setHeader("Content-ID", "<image>");
 
             }
-
             return multipart;
 
         } catch (Exception e) {
