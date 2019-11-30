@@ -1,10 +1,10 @@
 package com.email.services;
 
+import com.email.EmailSession;
 import com.email.models.CustomMessage;
 import com.email.utils.EmailFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -12,19 +12,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Properties;
 
 @Service
 public class EmailServiceImpl implements EmailService {
 
 	private static final Logger log = LoggerFactory.getLogger(EmailServiceImpl.class);
-
-	@Value("${server.user}")
-	private String user;
-	@Value("${server.password}")
-	private String password;
-	@Value("${server.host}")
-	private String host;
 
 	private EmailFormatter emailFormatter;
 
@@ -36,9 +28,9 @@ public class EmailServiceImpl implements EmailService {
 	public void send(CustomMessage customMessage) {
 		try {
 			Multipart multipartEmail = emailFormatter.formatEmailContent(customMessage.getText(),
-					customMessage.getTextType(), "file.txt", "file");
+					customMessage.getTextType(), null, null);
 
-			Session session = smtpConnect(user, password, host);
+			Session session = EmailSession.getDefaultSession();
 
 			if (session == null) {
 				log.info("Session creation error.");
@@ -55,14 +47,6 @@ public class EmailServiceImpl implements EmailService {
 			message.setSubject(customMessage.getTitle());
 
 			// Set the message body
-
-			// Set simple text
-			// message.setText("Hello, this is sample for to check send " + "email using
-			// JavaMailAPI ");
-			// Set html
-			// message.setContent("<h1>This is actual message embedded in HTML tags</h1>",
-			// "text/html");
-
 			message.setContent(multipartEmail);
 			// Send the message
 			Transport.send(message);
@@ -74,64 +58,17 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void reply() {
-
+		// TODO Not implemented yet
 	}
 
 	@Override
 	public void forward() {
-
-	}
-
-	public Session smtpConnect(final String user, final String password, String host) {
-		log.info("Creating smtp session ...");
-
-		log.info("User: {}", user);
-		log.info("Password: {}", password);
-		log.info("Host: {}", host);
-		
-		// Setup SMTP email properties
-		Properties props = new Properties();
-
-		// SSL
-//		props.put("mail.smtp.host", "smtp.gmail.com");
-//		props.put("mail.smtp.socketFactory.port", "465");
-//		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//		props.put("mail.smtp.auth", "true");
-//		props.put("mail.smtp.port", "465");
-//		
-		// TLS
-//		props.put("mail.smtp.auth", "true");
-//		props.put("mail.smtp.starttls.enable", "true");
-//		props.put("mail.smtp.host", "smtp.gmail.com");
-//		props.put("mail.smtp.port", "587");
-		
-		//props.put("mail.host", "smtp.gmail.com");
-//		props.put("mail.port", "587");
-//		props.put("mail.smtp.auth", "true");
-//		props.put("mail.smtp.socketFactory.port", "587");
-//		props.put("mail.smtp.socketFactory.fallback", "true");
-//		props.put("mail.smtp.starttls.enable", "true");
-//		props.put("mail.smtp.starttls.required", "true");
-//		props.put("mail.smtp.ssl.enable", "false");
-
-		props.put("mail.transport.protocol", "smtps");
-	    props.put("mail.smtp.host", "smtp.sendgrid.net");
-	    props.put("mail.smtp.port", 587);
-	    props.put("mail.smtp.starttls.enable", "true");
-	    props.put("mail.smtp.starttls.required", "true");
-	    props.put("mail.smtp.auth", "true");
-		
-		Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(user, password);
-			}
-		});
-		return session;
+		// TODO Not implemented yet
 	}
 
 	public void getEmails(final String user, final String password, String host) {
 
-		Session session = smtpConnect(user, password, host);
+		Session session = EmailSession.getDefaultSession();
 
 		try {
 

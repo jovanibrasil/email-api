@@ -2,6 +2,9 @@ package com.email.utils;
 
 import org.springframework.stereotype.Component;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
@@ -23,16 +26,19 @@ public class EmailFormatter {
             messageBodyPart.setContent(content, type);
             multipart.addBodyPart(messageBodyPart);
 
-            // Create the part two that is an attachment
-            //messageBodyPart = new MimeBodyPart();
-            //String filename = attachmentName;
-            //DataSource source = new FileDataSource(filename);
-            //messageBodyPart.setDataHandler(new DataHandler(source));
-            //messageBodyPart.setFileName(filename);
-            //multipart.addBodyPart(messageBodyPart);
+            if(attachmentName != null){
+                // Create the part two that is an attachment
+                messageBodyPart = new MimeBodyPart();
+                String filename = attachmentName;
+                DataSource source = new FileDataSource(filename);
+                messageBodyPart.setDataHandler(new DataHandler(source));
+                messageBodyPart.setFileName(filename);
+                multipart.addBodyPart(messageBodyPart);
 
-            //if (attachmentType.equals("image"))
-            //	messageBodyPart.setHeader("Content-ID", "<image>");
+                if ("image".equals(attachmentType))
+                    messageBodyPart.setHeader("Content-ID", "<image>");
+
+            }
 
             return multipart;
 
