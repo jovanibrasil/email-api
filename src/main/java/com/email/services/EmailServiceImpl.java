@@ -51,17 +51,12 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public List<Message> getAll() {
-		// TODO Not implemented yet
-		return null;
-	}
-
-	public void getEmails(final String user, final String password, String host) {
 		// TODO Fix implementation
 		try {
 
 			// Create the POP2 store object and connect with the pop server
 			Store store = session.getStore("pop3s");
-			store.connect(host, user, password);
+			//store.connect(host, user, password);
 
 			// Create the folder object and open it
 			Folder emailFolder = store.getFolder("INBOX");
@@ -99,9 +94,7 @@ public class EmailServiceImpl implements EmailService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return null;
 	}
-
-
 
 }

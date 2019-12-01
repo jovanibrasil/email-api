@@ -10,4 +10,5 @@ public interface EmailService {
     public void forward();
     public void delete();
     public List<Message> getAll();
+
 }
