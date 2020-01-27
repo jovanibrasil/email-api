@@ -16,7 +16,7 @@ build: clean
 	 --build-arg POP3_HOST=$$POP3_HOST --network net -t email-api .
 	chmod -R ugo+rw target/	
 run: clean
-	docker run -p 8080:8082 -m 256M --name=email-api -d email-api
+	docker run -p 8084:8084 -m 256M --name=email-api -d email-api
 start:
 	docker start email-api
 bash:

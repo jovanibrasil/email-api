@@ -10,7 +10,7 @@ ARG SMTP_HOST
 ARG POP3_USER
 ARG POP3_PASSWORD
 ARG POP3_HOST
-ARG PORT=8080
+ARG PORT=8084
 
 ENV SMTP_USER=$SMTP_USER
 ENV SMTP_PASSWORD=$SMTP_PASSWORD
@@ -25,7 +25,7 @@ ADD ./target/email-api.war /email-api.war
 #RUN echo "Port:${PORT}"
 #COPY ./target/email-api.war /usr/local/tomcat/webapps/email-api.war
    
-EXPOSE 8080
+EXPOSE 8084
    
 RUN echo "java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -jar payara-micro.jar --port $PORT --deploy /email-api.war" > /start.sh
  
