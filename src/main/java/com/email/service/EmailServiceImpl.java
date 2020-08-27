@@ -1,9 +1,11 @@
-package com.email.services;
+package com.email.service;
 
-import com.email.utils.EmailFormatter;
+import org.apache.commons.lang.NotImplementedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import com.email.util.EmailFormatter;
 
 import javax.mail.*;
 import java.io.BufferedReader;
@@ -36,17 +38,17 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void reply() {
-		// TODO Not implemented yet
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void forward() {
-		// TODO Not implemented yet
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public void delete() {
-		// TODO Not implemented yet
+		throw new NotImplementedException();
 	}
 
 	@Override

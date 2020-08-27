@@ -1,7 +1,8 @@
-package com.email.factories;
+package com.email.factory;
 
-import com.email.models.Email;
-import com.email.utils.EmailFormatter;
+import com.email.model.Email;
+import com.email.util.EmailFormatter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

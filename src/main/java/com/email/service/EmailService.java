@@ -1,4 +1,4 @@
-package com.email.services;
+package com.email.service;
 
 import javax.mail.Message;
 import java.util.List;

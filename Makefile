@@ -30,19 +30,13 @@ package:
 run-tests:
 	docker run -t postman/newman_alpine33 run https://www.getpostman.com/collections/94994e4c0de7a688aa51
 
-heroku-create-app:
-	- heroku destroy master-email-api --confirm master-email-api
-	heroku create master-email-api
 heroku-docker-deploy: heroku-create-app
 	heroku container:push web --app=master-email-api
 	heroku container:release web --app=master-email-api
-heroku-maven-deploy: heroku-create-app
-	heroku config:set SMTP_USER=$$SMTP_USER SMTP_PASSWORD=$$SMTP_PASSWORD \
-	 SMTP_HOST=$$SMTP_HOST POP3_USER=$$POP3_USER POP3_PASSWORD=$$POP3_PASSWORD \
-	 POP3_HOST=$$POP3_HOST --app=master-email-api
-	heroku config:add java_opts='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' --app=master-email-api
-	heroku config:add JAVA_OPTS='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' --app=master-email-api
+heroku-maven-deploy:
+	#heroku config:add java_opts='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' --app=master-email-api
+	#heroku config:add JAVA_OPTS='-Xmx384m -Xms384m -Xss512k -XX:+UseCompressedOops' --app=master-email-api
 	mvn clean heroku:deploy-war 
 	chmod -R ugo+rw target/
 heroku-logs:
-	heroku logs --app=master-email-api
+	heroku logs --app=jb-email-api

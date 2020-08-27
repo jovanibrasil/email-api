@@ -1,4 +1,4 @@
-package com.email.models;
+package com.email.model;
 
 public class Email {
 	

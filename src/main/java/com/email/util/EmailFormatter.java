@@ -1,4 +1,4 @@
-package com.email.utils;
+package com.email.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
