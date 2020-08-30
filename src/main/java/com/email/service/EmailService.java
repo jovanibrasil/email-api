@@ -1,14 +1,12 @@
 package com.email.service;
 
-import javax.mail.Message;
-import java.util.List;
+import java.util.Map;
+
+import com.email.factory.EmailType;
+import com.security.web.domain.dto.UserDTO;
 
 public interface EmailService {
 
-    public void send(Message message);
-    public void reply();
-    public void forward();
-    public void delete();
-    public List<Message> getAll();
+	public void sendEmail(EmailType emailType, UserDTO userDTO, Map<String, Object> params);
 
 }
