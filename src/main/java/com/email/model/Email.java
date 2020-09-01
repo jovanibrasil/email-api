@@ -1,15 +1,13 @@
-package com.email.models;
+package com.email.model;
 
 public class Email {
 	
-	private String text; //"This is message body"
-	private String textType; //text/plain
-	private String to; //"jovanibrasil@gmail.com"
-	private String from; //"noreply@jovanibrasil.com" contact / email / reports / noreply
+	private String text;
+	private String textType; 
+	private String to;
+	private String from; 
 	private String title;
-	
-	public Email() {}
-	
+		
 	public String getText() {
 		return text;
 	}
